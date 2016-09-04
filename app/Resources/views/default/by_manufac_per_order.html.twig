@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block title %}[PerOrder]{{ manufac }} - {{ ddate }}{% endblock %}
+{% block page_header %}Products by Manufacturer{% endblock %}
+{% block page_description %}{{ ddate }}{% endblock %}
+
+{% block body %}
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manufacturer: {{ manufac }}</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="m_form" method="post" action="{{ path('by_manufacturer_per_order', {'date': previous }) }}">
+                <div class="form-group">
+                    <select id="manufacturers" name="manufacturer_id" class="form-control">
+                        <option value="">-- Select manufacturer --</option>
+                        {% for m in manufacturers %}
+                            <option value="{{ m['manufacturer_id'] }}" {% if m['name'] == manufac %}selected="selected"{% endif %}>{{ m['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+            <table id="example1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>No. Order</td>
+                        <td>Product</td>
+                        <td>Quantity</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for need in needs %}
+                        <tr>
+                            <td>{{ need['order_id'] }}</td>
+                            <td>{{ need.product }}</td>
+                            <td>{{ need.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.box -->
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app/node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('app/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('app/node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('app/node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons/js/dataTables.buttons.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons/js/buttons.html5.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#manufacturers').on('change', function () {
+                $('#m_form').submit();
+            });
+            $('#example1').DataTable({
+                dom: 'Brtip',
+                buttons: [
+                    'csvHtml5'
+                ],
+                "columnDefs": [
+                    { "visible": false, "targets": 0 }
+                ],
+                "order": [[ 0, 'asc' ]],
+                "drawCallback": function ( settings ) {
+                    var api = this.api();
+                    var rows = api.rows( {page:'current'} ).nodes();
+                    var last=null;
+
+                    api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+                        if ( last !== group ) {
+                            $(rows).eq( i ).before(
+                                    '<tr class="group"><td colspan="3">Order No.: '+group+'</td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    } );
+                }
+            });
+        });
+    </script>
+{% endblock %}

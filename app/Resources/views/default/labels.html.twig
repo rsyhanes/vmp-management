@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}Product for Printing - {{ previous }}{% endblock %}
+{% block page_header %}Product for Printing{% endblock %}
+{% block page_description %}labels for {{ previous }}{% endblock %}
+
+{% block body %}
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Pending products requests</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Order No.</td>
+                    <td>Invoice No.</td>
+                    <td>Firstname</td>
+                    <td>Lastname</td>
+                    <td>Email</td>
+                    <td>Telephone</td>
+                    <td>Address</td>
+                    <td>City</td>
+                    <td>Zone</td>
+                    <td>Zip Code</td>
+                    <td>Shipping method</td>
+                    <td>Date Added</td>
+                    <td>Comments</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for need in needs %}
+                    <tr>
+                        <td>{{ need['order_id'] }}</td>
+                        <td>{{ need['invoice_no'] }}</td>
+                        <td>{{ need['shipping_firstname'] }}</td>
+                        <td>{{ need['shipping_lastname'] }}</td>
+                        <td>{{ need['email'] }}</td>
+                        <td>{{ need['telephone'] }}</td>
+                        <td>{{ need['shipping_address_1'] }}</td>
+                        <td>{{ need['shipping_city'] }}</td>
+                        <td>{{ need['shipping_zone'] }}</td>
+                        <td>{{ need['zipcode_number'] }}</td>
+                        <td>{{ need['shipping_method'] }}</td>
+                        <td>{{ need['date_added'] }}</td>
+                        <td>{{ need['comment'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.box -->
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app/node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('app/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('app/node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('app/node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons/js/dataTables.buttons.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons/js/buttons.html5.js') }}"></script>
+    <script type="text/javascript">
+        $('#example1').DataTable({
+            dom: 'Brtip',
+            buttons: [
+                'csvHtml5'
+            ]
+        });
+    </script>
+{% endblock %}

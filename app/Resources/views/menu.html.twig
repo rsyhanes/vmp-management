@@ -1,0 +1,17 @@
+<li class="treeview">
+    <a href="#"><i class="fa fa-truck"></i> <span>Requests</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+        <li>
+            <a href="{{ path('all', {'date':date()|date('m-d-Y')}) }}"><i class="fa fa-th-list"></i> <span>By Products</span></a>
+        </li>
+        <li>
+            <a href="{{ path('by_manufacturer', {'date':date()|date('m-d-Y')}) }}"><i class="fa fa-th-list"></i> <span>By Manufacturers</span></a>
+        </li>
+        <li>
+            <a href="{{ path('by_manufacturer_per_order', {'date':date()|date('m-d-Y')}) }}"><i class="fa fa-th-list"></i> <span>By Orders</span></a>
+        </li>
+        <li>
+            <a href="{{ path('labels', {'date':date()|date('m-d-Y')}) }}"><i class="fa fa-th-list"></i> <span>Shipping Labels</span></a>
+        </li>
+    </ul>
+</li>

@@ -1,0 +1,23 @@
+{
+  "name": "assets",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "rsyhanes <renier.santander@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/rsyhanes/vmp-management",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "adminlte#^2.3.6",
+    "underscore": "^1.8.3",
+    "backbone": "^1.3.3",
+    "datatables.net": "^1.10.12"
+  }
+}

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block title %}Product Requests - {{ previous }}{% endblock %}
+{% block page_header %}Product Requests{% endblock %}
+{% block page_description %}{{ previous }}{% endblock %}
+
+{% block body %}
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Pending products requests</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td>Product</td>
+                        <td>Quantity</td>
+                        <td>Manufacturer</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for need in needs %}
+                        <tr>
+                            <td>{{ need.product }}</td>
+                            <td>{{ need.cant }}</td>
+                            <td><a href="{{ path('by_manufacturer', {'date':date()|date('m-d-Y'), 'manufacturer':need["manufacturer_id"]}) }}">{{ need.manufac|e }}</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.box -->
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app/node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('app/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('app/node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('app/node_modules/admin-lte/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons/js/dataTables.buttons.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
+    <script src="{{ asset('app/node_modules/datatables.net-buttons/js/buttons.html5.js') }}"></script>
+    <script type="text/javascript">
+        $('#example1').DataTable({
+            dom: 'Brtip',
+            buttons: [
+                'csvHtml5'
+            ]
+        });
+    </script>
+{% endblock %}

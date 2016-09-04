@@ -1,0 +1,11 @@
+.navbar.navbar-static-top > .top-navbar-btn {
+  float: left;
+  padding: 18px;
+  color: #fff; }
+  .navbar.navbar-static-top > .top-navbar-btn:hover {
+    background-color: #d73925; }
+
+tr.group {
+  background-color: #f9fafc; }
+
+/*# sourceMappingURL=styles.css.map */

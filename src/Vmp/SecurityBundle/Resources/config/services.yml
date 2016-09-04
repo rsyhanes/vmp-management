@@ -1,0 +1,4 @@
+services:
+#    vmp_security.example:
+#        class: Vmp\SecurityBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
